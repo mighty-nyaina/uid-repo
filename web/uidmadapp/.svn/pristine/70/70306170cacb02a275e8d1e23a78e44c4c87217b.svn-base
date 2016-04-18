@@ -1,0 +1,27 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: Ntsou
+ * Date: 12/04/2016
+ * Time: 15:06
+ */
+require APPPATH . '/libraries/REST_Controller.php';
+class User extends REST_Controller{
+    function __construct()
+    {
+        parent::__construct();
+        $this->load->model('Patient_model', 'patient');
+    }
+    public function user_get()
+    {
+        $this->response("iooo", REST_Controller::HTTP_OK); // OK (200) being the HTTP response code
+    }
+    public function login_post(){
+        $retour = $this->patient->login($this->post('email'),$this->post('password'));
+        $this->response($this->objectToArrayKeyLower($retour), REST_Controller::HTTP_OK);
+    }
+    public function loginfb_post(){
+        $retour = $this->patient->loginfb($this->post('fb_id'),$this->post('nom'),$this->post('email'),$this->post('sexe'));
+        $this->response($this->objectToArrayKeyLower($retour), REST_Controller::HTTP_OK);
+    }
+} 

@@ -1,0 +1,19 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: Ntsou
+ * Date: 12/04/2016
+ * Time: 15:06
+ */
+require APPPATH . '/libraries/REST_Controller.php';
+class User extends REST_Controller{
+    function __construct()
+    {
+        // Construct the parent class
+        parent::__construct();
+    }
+    public function user_get()
+    {
+        $this->response("iooo", REST_Controller::HTTP_OK); // OK (200) being the HTTP response code
+    }
+} 

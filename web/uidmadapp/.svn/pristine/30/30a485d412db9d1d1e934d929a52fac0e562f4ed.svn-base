@@ -1,0 +1,28 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: Ntsou
+ * Date: 12/04/2016
+ * Time: 19:20
+ */
+class Patient extends CI_Model{
+    function __construct()
+    {
+        // Construct the parent class
+        parent::__construct();
+    }
+    public function findNearestHospital($longitude, $latitude)
+    {
+        $sql = "SELECT nom,latitude, longitude, email,SQRT(
+                    POW(69.1 * (latitude - ?), 2) +
+                    POW(69.1 * (? - longitude) * COS(latitude / 57.3), 2)) AS distance
+                FROM HOPITAL ORDER BY distance asc LIMIT 1";
+        $query = $this->db->query($sql,array($latitude, $longitude));
+        $result = $query->row();
+        if(isset($result))
+        {
+            return $result;
+        }
+        return null;
+    }
+}

@@ -1,0 +1,48 @@
+<?php
+class Patient_model extends CI_Model{
+    protected $table = 'PATIENT';
+    
+    public function __construct()
+    {
+        parent::__construct();
+    }
+    public function login($email, $password){
+        $retour = $this->db->select('*')
+                        ->from($this->table)
+                        ->where('EMAIL', $email)
+                        ->where('PASSWORD', $password)
+                        ->get()->result();
+        return $retour;
+    }
+    public function loginfb($fb_id,$nom,$email,$sexe){
+        $retour = $this->db->select('*')
+                        ->from($this->table)
+                        ->where('FB_ID', $fb_id)
+                        ->get()->result();
+        if(count($retour)>0){
+            return $retour;
+        }
+        $retour = $this->register($nom, '', $sexe, '', '','', $email, '', '', $fb_id);
+        return $retour;
+    }
+    public function register($nom, $prenom, $sexe,$date_naissance,$adresse,$contact,$email,$contact_urgence,$password,$fb_id){
+         $this->db->insert($this->table, array('NOM' => $nom, 'PRENOM' => $prenom, 'DATE_NAISSANCE' => $date_naissance, 'ADRESSE' => $adresse, 'CONTACT' => $contact, 'EMAIL' => $email, 'CONTACT_URGENCE' => $contact_urgence, 'PASSWORD' => $password, 'FB_ID' => $fb_id));
+        $userid = $this->db->insert_id();
+        $retour = array();
+        $retour[0] = array(
+            'ID_PATIENT' => $userid,
+            'NOM' => $nom, 
+            'PRENOM' => $prenom, 
+            'SEXE' => $sexe, 
+            'DATE_NAISSANCE' => $date_naissance, 
+            'ADRESSE' => $adresse, 
+            'CONTACT' => $contact, 
+            'EMAIL' => $email, 
+            'CONTACT_URGENCE' => $contact_urgence, 
+            'PASSWORD' => $password, 
+            'FB_ID' => $fb_id,
+            'PHOTO' => null,
+        );
+        return $retour;
+    }
+}

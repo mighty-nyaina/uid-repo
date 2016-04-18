@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ws_login_url">http://192.168.1.2:89/uidmadapp/index.php/user/login</string>
+    <string name="ws_loginfb_url">http://192.168.1.2:89/uidmadapp/index.php/user/loginfb</string>
+    <string name="ws_scan_tag">http://192.168.1.2:89/uidmadapp/index.php/urgence/urgence</string>
+    <string name="ws_register_url">http://192.168.1.2:89/uidmadapp/index.php/user/register</string>
+    <string name="ws_modify_info">http://192.168.1.2:89/uidmadapp/index.php/user/updateuser</string>
+    <string name="ws_registertag_url">http://192.168.1.2:89/uidmadapp/index.php/user/registertag</string>
+    <string name="ws_listemaladie_url">http://192.168.1.2:89/uidmadapp/index.php/user/listemaladie</string>
+    <string name="ws_listemaladiebyid_url">http://192.168.1.2:89/uidmadapp/index.php/user/listemaladiebyid</string>
+    <string name="images_url">http://192.168.1.2:89/uidmadapp/assets/</string>
+</resources>

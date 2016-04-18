@@ -1,0 +1,48 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: Ntsou
+ * Date: 12/04/2016
+ * Time: 19:00
+ */
+defined('BASEPATH') OR exit('No direct script access allowed');
+require APPPATH . '/libraries/REST_Controller.php';
+class Urgence extends REST_Controller{
+    function __construct()
+    {
+        // Construct the parent class
+        parent::__construct();
+    }
+    public function urgence_get()
+    {
+        $tagid = $this->get('idtag');
+        $longitude = $this->get("longitude");;
+        $latitude = $this->get("latitude");;
+        $v = ['teste '=>$tagid];
+
+        $this->load->model('patient');
+        $data['hopital_proche'] = $this->patient->findNearestHospital($longitude,$latitude);
+        $patient_info = $this->patient->getInfoClientByTag($tagid);
+        $data['info_client'] = $patient_info;
+        $data['maladie'] = $this->patient->getMaladieClient($patient_info->ID_PATIENT);
+        $this->response($data, REST_Controller::HTTP_OK);
+        //$this->response($data, REST_Controller::HTTP_OK);
+    }
+    public function urgence_post()
+    {
+        $tagid = $this->post('idtag');
+
+        $longitude = doubleval($this->post("longitude"));
+        $latitude = doubleval($this->post("latitude"));
+
+        $this->load->model('patient');
+        $data['hopital_proche'] = $this->patient->findNearestHospital($longitude,$latitude);
+        $patient_info = $this->patient->getInfoClientByTag($tagid);
+        $data['info_client'] = $patient_info;
+        $data['maladie'] = $this->patient->getMaladieClient($patient_info['ID_PATIENT']);
+        $v = ['test'=>intval($this->get('idtag'))];
+
+        $this->response($v, REST_Controller::HTTP_OK);
+        //$this->response($data, REST_Controller::HTTP_OK);
+    }
+}
