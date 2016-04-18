@@ -22,7 +22,22 @@ class Patient_model extends CI_Model{
         if(count($retour)>0){
             return $retour;
         }
-        $retour = $this->register($nom, '', $sexe, '', '','', $email, '', '', null);
+        $this->db->insert($this->table, array('NOM' => $nom,'EMAIL' => $email,'FB_ID' => $fb_id, 'SEXE' => $sexe));
+        $userid = $this->db->insert_id();
+        $retour = array();
+        $retour[0] = array(
+            'ID_PATIENT' => $userid,
+            'NOM' => $nom, 
+            'PRENOM' => null, 
+            'SEXE' => $sexe, 
+            'DATE_NAISSANCE' => null, 
+            'ADRESSE' => null, 
+            'CONTACT' => null, 
+            'EMAIL' => $email, 
+            'PASSWORD' => null, 
+            'FB_ID' => $fb_id,
+            'PHOTO' => null,
+        );
         return $retour;
     }
     public function register($nom, $prenom, $sexe,$date_naissance,$adresse,$contact,$email,$password, $listemaladie){
